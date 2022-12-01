@@ -66,10 +66,26 @@ b'python':b'gc__done' [sema 0x593090]
   functions we're entering:
 
 Example:
+
+In one terminal, run:
+```
+python3
+```
+
+In another:
 ```
 tplist -p $(pgrep python3)
 
 sudo bpftrace -e 'usdt:/proc/3499/root/usr/bin/python3.10:python:function__entry { printf("Module: %s Function: %s Line: %u\n", str(arg0), str(arg1), arg2) }'
+```
+
+In the python REPL:
+```
+>>> def add(a, b):
+...     return a + b
+...
+>>> add(1, 2)
+3
 ```
 
 Output:
